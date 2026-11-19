@@ -12,6 +12,7 @@ on:
 env:
   SCONS_FLAGS: >-
     dev_mode=yes
+    module_mono_enabled=no
     module_text_server_fb_enabled=yes
   GODOT_CPP_BRANCH: 4.5
   DOTNET_NOLOGO: true

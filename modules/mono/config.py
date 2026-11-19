@@ -6,6 +6,11 @@ def can_build(env, platform):
 
         print_warning(f"The 'mono' module does not support the '{platform}' platform. Disabling it.")
         return False
+    if env.get("target") == "editor" and platform not in ["windows", "macos", "linuxbsd"]:
+        from misc.utility.color import print_warning
+
+        print_warning(f"The 'mono' module does not support editor builds for the '{platform}' platform. Disabling it.")
+        return False
     return True
 
 
