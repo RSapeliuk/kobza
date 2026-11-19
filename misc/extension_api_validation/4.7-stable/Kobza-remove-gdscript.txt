@@ -1,0 +1,8 @@
+Validate extension JSON: API was removed: classes/GDScript
+Validate extension JSON: API was removed: classes/GDScriptLanguageProtocol
+Validate extension JSON: API was removed: classes/GDScriptSyntaxHighlighter
+Validate extension JSON: API was removed: classes/GDScriptTextDocument
+Validate extension JSON: API was removed: classes/GDScriptWorkspace
+Validate extension JSON: API was removed: singletons/GDScriptLanguageProtocol
+
+Kobza removes the GDScript module entirely; C# is the scripting language.
