@@ -1,4 +1,11 @@
 def can_build(env, platform):
+    # Kobza: the module is enabled by default, so skip it on platforms that don't support it
+    # (e.g. Web) instead of aborting the build.
+    if "mono" not in env.get("supported", []):
+        from misc.utility.color import print_warning
+
+        print_warning(f"The 'mono' module does not support the '{platform}' platform. Disabling it.")
+        return False
     return True
 
 
@@ -26,5 +33,6 @@ def get_doc_path():
 
 
 def is_enabled():
-    # The module is disabled by default. Use module_mono_enabled=yes to enable it.
-    return False
+    # Kobza: C# is the scripting language, so the module is enabled by default.
+    # Use module_mono_enabled=no to disable it.
+    return True

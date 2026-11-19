@@ -760,7 +760,7 @@ void EditorNode::_update_theme(bool p_skip_creation) {
 		theme = EditorThemeManager::generate_theme(theme);
 		DisplayServer::set_early_window_clear_color_override(true, theme->get_color(SNAME("background"), EditorStringName(Editor)));
 
-#if defined(MODULE_GDSCRIPT_ENABLED) || defined(MODULE_MONO_ENABLED)
+#if defined(MODULE_MONO_ENABLED)
 		if (EditorHelpHighlighter::get_singleton()) {
 			// Update syntax colors.
 			EditorHelpHighlighter::get_singleton()->clear_cache();
@@ -941,7 +941,7 @@ void EditorNode::_notification(int p_what) {
 
 		case NOTIFICATION_POSTINITIALIZE: {
 			EditorHelp::generate_doc();
-#if defined(MODULE_GDSCRIPT_ENABLED) || defined(MODULE_MONO_ENABLED)
+#if defined(MODULE_MONO_ENABLED)
 			EditorHelpHighlighter::create_singleton();
 #endif
 		} break;
@@ -9863,7 +9863,7 @@ EditorNode::~EditorNode() {
 
 	remove_print_handler(&print_handler);
 	EditorHelp::cleanup_doc();
-#if defined(MODULE_GDSCRIPT_ENABLED) || defined(MODULE_MONO_ENABLED)
+#if defined(MODULE_MONO_ENABLED)
 	EditorHelpHighlighter::free_singleton();
 #endif
 	memdelete(editor_selection);

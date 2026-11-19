@@ -338,9 +338,6 @@ def generate_scu_files(max_includes_per_scu):
 
     process_folder(["modules/csg"])
     process_folder(["modules/betsy"])
-    process_folder(["modules/gdscript"])
-    process_folder(["modules/gdscript/editor"])
-    process_folder(["modules/gdscript/language_server"])
     process_folder(["modules/gltf"])
     process_folder(["modules/gltf/structures"])
     process_folder(["modules/gltf/editor"])
