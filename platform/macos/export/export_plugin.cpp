@@ -1825,9 +1825,9 @@ Error EditorExportPlatformMacOS::_unzip_debugsymbols(Ref<DirAccess> &p_da, const
 		}
 		String file = String::utf8(fname);
 		file = file.trim_prefix("out/macos/templates/");
-		if (file.begins_with(vformat("godot.macos.%s.universal.dSYM/", template_name))) {
-			file = file.trim_prefix(vformat("godot.macos.%s.universal.dSYM/", template_name));
-			file = file.replace(vformat("godot.macos.%s.universal", template_name), p_app_name);
+		if (file.begins_with(vformat("kobza.macos.%s.universal.dSYM/", template_name))) {
+			file = file.trim_prefix(vformat("kobza.macos.%s.universal.dSYM/", template_name));
+			file = file.replace(vformat("kobza.macos.%s.universal", template_name), p_app_name);
 
 			Vector<uint8_t> data;
 			data.resize(info.uncompressed_size);
@@ -1893,7 +1893,7 @@ Error EditorExportPlatformMacOS::_copy_debugsymbols_recursively(Ref<DirAccess> &
 			if (src_da->current_is_dir()) {
 				dirs.push_back(n);
 			} else {
-				const String &rel_path = n.replace(vformat("godot.macos.%s.universal", template_name), p_app_name);
+				const String &rel_path = n.replace(vformat("kobza.macos.%s.universal", template_name), p_app_name);
 				if (!n.is_relative_path()) {
 					src_da->list_dir_end();
 					if (err != OK) {

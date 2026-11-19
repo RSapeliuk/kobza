@@ -130,7 +130,7 @@ def create_template_zip(env, js, wasm, side):
     zip_files = env.NoCache(env.InstallAs(out_files, in_files))
     env.NoCache(
         env.Zip(
-            "#bin/godot",
+            "#bin/kobza",
             zip_files,
             ZIPROOT=zip_dir,
             ZIPSUFFIX="${PROGSUFFIX}${ZIPSUFFIX}",

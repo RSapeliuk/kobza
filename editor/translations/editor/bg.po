@@ -3137,8 +3137,8 @@ msgstr "Отваряне в уеб браузъра"
 msgid "Select Template File"
 msgstr "Избор на шаблонен файл"
 
-msgid "Godot Export Templates"
-msgstr "Шаблони за изнасяне на Godot"
+msgid "Kobza Export Templates"
+msgstr "Шаблони за изнасяне на Kobza"
 
 msgid "Invalid Encryption Key (must be 64 hexadecimal characters long)"
 msgstr ""
@@ -3196,8 +3196,8 @@ msgstr "Коригиране"
 msgid "Base Packs:"
 msgstr "Базови Пакети:"
 
-msgid "Godot Project Pack"
-msgstr "Проектен пакет на Godot"
+msgid "Kobza Project Pack"
+msgstr "Проектен пакет на Kobza"
 
 msgid "Encryption"
 msgstr "Шифроване"
@@ -3360,8 +3360,8 @@ msgstr "Основатели на проекта"
 msgid "Lead Developer"
 msgstr "Главен разработчик"
 
-msgid "Thanks from the Godot community!"
-msgstr "Благодарности от общността на Godot!"
+msgid "Thanks from the Kobza community!"
+msgstr "Благодарности от общността на Kobza!"
 
 msgid "Authors"
 msgstr "Автори"
@@ -3674,8 +3674,8 @@ msgstr "Име на Проекта"
 msgid "Project Path"
 msgstr "Път на Проекта"
 
-msgid "This project was last edited in a different Godot version: "
-msgstr "Проектът е последно модифициран в друга версия на Godot: "
+msgid "This project was last edited in a different Kobza version: "
+msgstr "Проектът е последно модифициран в друга версия на Kobza: "
 
 msgid "Toggle Favorite"
 msgstr "Превключване на любимите"

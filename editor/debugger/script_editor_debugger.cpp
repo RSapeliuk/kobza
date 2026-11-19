@@ -2031,9 +2031,9 @@ void ScriptEditorDebugger::_item_menu_id_pressed(int p_option) {
 			const int line_number = file_line_number[1].to_int();
 
 			// Construct a GitHub repository URL and open it in the user's default web browser.
-			// If the commit hash is available, use it for greater accuracy. Otherwise fall back to tagged release.
-			String git_ref = String(GODOT_VERSION_HASH).is_empty() ? String(GODOT_VERSION_NUMBER) + "-stable" : String(GODOT_VERSION_HASH);
-			OS::get_singleton()->shell_open(vformat("https://github.com/godotengine/godot/blob/%s/%s#L%d",
+			// If the commit hash is available, use it for greater accuracy. Otherwise fall back to the main branch.
+			String git_ref = String(GODOT_VERSION_HASH).is_empty() ? String("master") : String(GODOT_VERSION_HASH);
+			OS::get_singleton()->shell_open(vformat("https://github.com/RSapeliuk/kobza/blob/%s/%s#L%d",
 					git_ref, file, line_number));
 		} break;
 		case ACTION_DELETE_BREAKPOINT: {

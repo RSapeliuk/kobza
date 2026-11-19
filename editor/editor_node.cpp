@@ -753,7 +753,6 @@ void EditorNode::_update_system_menu_icons(bool p_dark_mode) {
 #else
 	help_menu->set_item_icon(help_menu->get_item_index(HELP_ABOUT), get_editor_theme_native_menu_icon(SNAME("Godot"), menu_type == MENU_TYPE_GLOBAL, p_dark_mode));
 #endif
-	help_menu->set_item_icon(help_menu->get_item_index(HELP_SUPPORT_GODOT_DEVELOPMENT), get_editor_theme_native_menu_icon(SNAME("Heart"), menu_type == MENU_TYPE_GLOBAL, p_dark_mode));
 }
 
 void EditorNode::_update_theme(bool p_skip_creation) {
@@ -2180,7 +2179,7 @@ void EditorNode::_dialog_display_load_error(String p_file, Error p_error) {
 				show_warning(vformat(TTR("Missing file '%s' or one of its dependencies."), p_file.get_file()));
 			} break;
 			case ERR_FILE_UNRECOGNIZED: {
-				show_warning(vformat(TTR("File '%s' is saved in a format that is newer than the formats supported by this version of Godot, so it can't be opened."), p_file.get_file()));
+				show_warning(vformat(TTR("File '%s' is saved in a format that is newer than the formats supported by this version of Kobza, so it can't be opened."), p_file.get_file()));
 			} break;
 			default: {
 				show_warning(vformat(TTR("Error while loading file '%s'."), p_file.get_file()));
@@ -4030,24 +4029,15 @@ void EditorNode::_menu_option_confirm(int p_option, bool p_confirmed) {
 		case HELP_DOCS: {
 			OS::get_singleton()->shell_open(GODOT_VERSION_DOCS_URL "/");
 		} break;
-		case HELP_FORUM: {
-			OS::get_singleton()->shell_open("https://forum.godotengine.org/");
-		} break;
 		case HELP_REPORT_A_BUG: {
-			OS::get_singleton()->shell_open("https://github.com/godotengine/godot/issues");
+			OS::get_singleton()->shell_open("https://github.com/RSapeliuk/kobza/issues");
 		} break;
 		case HELP_COPY_SYSTEM_INFO: {
 			String info = _get_system_info();
 			DisplayServer::get_singleton()->clipboard_set(info);
 		} break;
 		case HELP_SUGGEST_A_FEATURE: {
-			OS::get_singleton()->shell_open("https://github.com/godotengine/godot-proposals#readme");
-		} break;
-		case HELP_SEND_DOCS_FEEDBACK: {
-			OS::get_singleton()->shell_open("https://github.com/godotengine/godot-docs/issues");
-		} break;
-		case HELP_COMMUNITY: {
-			OS::get_singleton()->shell_open("https://godotengine.org/community");
+			OS::get_singleton()->shell_open("https://github.com/RSapeliuk/kobza/issues");
 		} break;
 		case HELP_ABOUT: {
 			if (!about) {
@@ -4055,9 +4045,6 @@ void EditorNode::_menu_option_confirm(int p_option, bool p_confirmed) {
 				gui_base->add_child(about);
 			}
 			about->popup_centered(Size2(780, 500) * EDSCALE);
-		} break;
-		case HELP_SUPPORT_GODOT_DEVELOPMENT: {
-			OS::get_singleton()->shell_open("https://fund.godotengine.org/?ref=help_menu");
 		} break;
 	}
 }
@@ -8323,14 +8310,11 @@ void EditorNode::_build_help_menu(bool p_dark_mode) {
 	help_menu->add_icon_shortcut(get_editor_theme_native_menu_icon(SNAME("HelpSearch"), menu_type == MENU_TYPE_GLOBAL, p_dark_mode), ED_GET_SHORTCUT("editor/editor_help"), HELP_SEARCH);
 	help_menu->add_separator();
 	help_menu->add_shortcut(ED_GET_SHORTCUT("editor/online_docs"), HELP_DOCS);
-	help_menu->add_shortcut(ED_GET_SHORTCUT("editor/forum"), HELP_FORUM);
-	help_menu->add_shortcut(ED_GET_SHORTCUT("editor/community"), HELP_COMMUNITY);
 	help_menu->add_separator();
 	help_menu->add_icon_shortcut(get_editor_theme_native_menu_icon(SNAME("ActionCopy"), menu_type == MENU_TYPE_GLOBAL, p_dark_mode), ED_GET_SHORTCUT("editor/copy_system_info"), HELP_COPY_SYSTEM_INFO);
 	help_menu->set_item_tooltip(-1, TTRC("Copies the system info as a single-line text into the clipboard."));
 	help_menu->add_shortcut(ED_GET_SHORTCUT("editor/report_a_bug"), HELP_REPORT_A_BUG);
 	help_menu->add_shortcut(ED_GET_SHORTCUT("editor/suggest_a_feature"), HELP_SUGGEST_A_FEATURE);
-	help_menu->add_shortcut(ED_GET_SHORTCUT("editor/send_docs_feedback"), HELP_SEND_DOCS_FEEDBACK);
 	help_menu->add_separator();
 #ifdef MACOS_ENABLED
 	if (menu_type != MENU_TYPE_GLOBAL) {
@@ -8340,7 +8324,6 @@ void EditorNode::_build_help_menu(bool p_dark_mode) {
 #else
 	help_menu->add_icon_shortcut(get_editor_theme_native_menu_icon(SNAME("Godot"), menu_type == MENU_TYPE_GLOBAL, p_dark_mode), ED_GET_SHORTCUT("editor/about"), HELP_ABOUT);
 #endif
-	help_menu->add_icon_shortcut(get_editor_theme_native_menu_icon(SNAME("Heart"), menu_type == MENU_TYPE_GLOBAL, p_dark_mode), ED_GET_SHORTCUT("editor/support_development"), HELP_SUPPORT_GODOT_DEVELOPMENT);
 }
 
 void EditorNode::_add_to_main_menu(const String &p_name, PopupMenu *p_menu) {
@@ -9211,15 +9194,11 @@ EditorNode::EditorNode() {
 	ED_SHORTCUT_AND_COMMAND("editor/editor_help", TTRC("Search Help..."), Key::F1);
 	ED_SHORTCUT_OVERRIDE("editor/editor_help", "macos", KeyModifierMask::ALT | Key::SPACE);
 	ED_SHORTCUT_AND_COMMAND("editor/online_docs", TTRC("Online Documentation"));
-	ED_SHORTCUT_AND_COMMAND("editor/forum", TTRC("Forum"));
-	ED_SHORTCUT_AND_COMMAND("editor/community", TTRC("Community"));
 
 	ED_SHORTCUT_AND_COMMAND("editor/copy_system_info", TTRC("Copy System Info"));
 	ED_SHORTCUT_AND_COMMAND("editor/report_a_bug", TTRC("Report a Bug"));
 	ED_SHORTCUT_AND_COMMAND("editor/suggest_a_feature", TTRC("Suggest a Feature"));
-	ED_SHORTCUT_AND_COMMAND("editor/send_docs_feedback", TTRC("Send Docs Feedback"));
-	ED_SHORTCUT_AND_COMMAND("editor/about", TTRC("About Godot..."));
-	ED_SHORTCUT_AND_COMMAND("editor/support_development", TTRC("Support Godot Development"));
+	ED_SHORTCUT_AND_COMMAND("editor/about", TTRC("About Kobza..."));
 
 	// Use the Ctrl modifier so F2 can be used to rename nodes in the scene tree dock.
 	ED_SHORTCUT_AND_COMMAND("editor/editor_2d", TTRC("Open 2D Workspace"), KeyModifierMask::CTRL | Key::F1);
@@ -9535,7 +9514,7 @@ EditorNode::EditorNode() {
 
 	disk_changed = memnew(ConfirmationDialog);
 	{
-		disk_changed->set_title(TTR("Files have been modified outside Godot"));
+		disk_changed->set_title(TTR("Files have been modified outside Kobza"));
 
 		VBoxContainer *vbc = memnew(VBoxContainer);
 		disk_changed->add_child(vbc);

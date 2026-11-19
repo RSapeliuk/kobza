@@ -69,28 +69,11 @@ void ExportTemplateManager::_request_mirrors() {
 	mirrors_empty = true;
 	_update_install_button();
 
-	// Downloadable export templates are only available for stable and official alpha/beta/RC builds
-	// (which always have a number following their status, e.g. "alpha1").
-	// Therefore, don't display download-related features when using a development version
-	// (whose builds aren't numbered).
-	if (!strcmp(GODOT_VERSION_STATUS, "dev") || !strcmp(GODOT_VERSION_STATUS, "beta") || !strcmp(GODOT_VERSION_STATUS, "rc")) {
-		_set_empty_mirror_list();
-		mirrors_list->set_tooltip_text(TTRC("Official export templates aren't available for development builds."));
-#ifdef REAL_T_IS_DOUBLE
-	} else if (true) {
-		_set_empty_mirror_list();
-		mirrors_list->set_tooltip_text(TTRC("Official export templates aren't available for double-precision builds."));
-#endif
-	} else if (!_is_online()) {
-		mirrors_list->set_tooltip_text(TTRC("Template downloading is disabled in offline mode."));
-	} else {
-		mirrors_list->set_tooltip_text(String());
-	}
-
-	if (mirrors_list->get_tooltip_text().is_empty()) {
-		const String mirrors_metadata_url = vformat("https://godotengine.org/mirrorlist/%s.json", GODOT_VERSION_FULL_CONFIG);
-		mirrors_requester->request(mirrors_metadata_url);
-	}
+	// Kobza doesn't provide downloadable export templates yet, and the upstream
+	// Godot Engine templates are not compatible with Kobza builds.
+	// Export templates need to be compiled from source and installed from a file.
+	_set_empty_mirror_list();
+	mirrors_list->set_tooltip_text(TTRC("Downloadable export templates aren't available for Kobza yet. Compile them from source and install them from a file."));
 }
 
 void ExportTemplateManager::_mirrors_request_completed(int p_result, int p_response_code, const PackedStringArray &p_headers, const PackedByteArray &p_body) {
@@ -668,7 +651,7 @@ void ExportTemplateManager::_fill_template_tree(Tree *p_tree, const HashMap<Temp
 
 	if (is_available_tree && !p_is_current_version) {
 		TreeItem *nodownloadsforyou = platform_parent->create_child();
-		nodownloadsforyou->set_text(0, TTR("Downloads are only available for the current Godot version."));
+		nodownloadsforyou->set_text(0, TTR("Downloads are only available for the current Kobza version."));
 		nodownloadsforyou->set_custom_color(0, get_theme_color(SNAME("font_disabled_color"), EditorStringName(Editor)));
 		return;
 	}
@@ -858,7 +841,7 @@ void ExportTemplateManager::_update_install_button() {
 		} else if (mirrors_empty) {
 			install_button->set_tooltip_text(TTRC("No mirrors available for download."));
 		} else {
-			install_button->set_tooltip_text(TTRC("Downloads are only available for the current Godot version."));
+			install_button->set_tooltip_text(TTRC("Downloads are only available for the current Kobza version."));
 		}
 	} else {
 		install_button->set_tooltip_text(String());
@@ -1649,7 +1632,7 @@ ExportTemplateManager::ExportTemplateManager() {
 	tpz_selection_dialog->set_access(FileDialog::ACCESS_FILESYSTEM);
 	tpz_selection_dialog->set_file_mode(FileDialog::FILE_MODE_OPEN_FILE);
 	tpz_selection_dialog->set_current_dir(EDITOR_DEF("_export_template_download_directory", ""));
-	tpz_selection_dialog->add_filter("*.tpz", TTRC("Godot Export Templates"));
+	tpz_selection_dialog->add_filter("*.tpz", TTRC("Kobza Export Templates"));
 	tpz_selection_dialog->connect("file_selected", callable_mp(this, &ExportTemplateManager::_tpz_file_selected));
 	add_child(tpz_selection_dialog);
 
@@ -1662,12 +1645,12 @@ ExportTemplateManager::ExportTemplateManager() {
 	VBoxContainer *side_vb = memnew(VBoxContainer);
 	main_split->add_child(side_vb);
 
-	Label *version_header = memnew(Label(TTRC("Godot Version")));
+	Label *version_header = memnew(Label(TTRC("Kobza Version")));
 	version_header->set_theme_type_variation("HeaderSmall");
 	side_vb->add_child(version_header);
 
 	version_list = memnew(ItemList);
-	version_list->set_accessibility_name(TTRC("Godot Version List"));
+	version_list->set_accessibility_name(TTRC("Kobza Version List"));
 	version_list->set_theme_type_variation("ItemListSecondary");
 	version_list->set_v_size_flags(Control::SIZE_EXPAND_FILL);
 	side_vb->add_child(version_list);

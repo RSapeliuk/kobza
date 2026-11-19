@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Based on the Godot Engine AppStream file by Rémi Verschelde (CC0-1.0). -->
+<component type="desktop">
+  <id>io.github.rsapeliuk.Kobza</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <name>Kobza Engine</name>
+  <summary>Multi-platform 2D and 3D game engine with a feature-rich editor</summary>
+  <launchable type="desktop-id">io.github.rsapeliuk.Kobza.desktop</launchable>
+  <description>
+    <p>
+      Kobza is a feature-packed, multi-platform 2D and 3D game engine, forked
+      from Godot Engine. It provides a huge set of common tools, so you can
+      just focus on making your game without reinventing the wheel.
+    </p>
+    <p>
+      Kobza is completely free and open source under the very permissive MIT
+      license. No strings attached, no royalties, nothing. Your game is yours,
+      down to the last line of engine code.
+    </p>
+  </description>
+  <url type="homepage">https://github.com/RSapeliuk/kobza</url>
+  <url type="bugtracker">https://github.com/RSapeliuk/kobza/issues</url>
+  <developer_name>Kobza contributors</developer_name>
+</component>
