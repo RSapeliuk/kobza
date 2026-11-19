@@ -2430,8 +2430,8 @@ msgstr "დატოვება"
 msgid "Enable Delta Encoding"
 msgstr "დელტაკოდირების ჩართვა"
 
-msgid "Godot Project Pack"
-msgstr "Godot-ის პროექტების ნაკრები"
+msgid "Kobza Project Pack"
+msgstr "Kobza-ის პროექტების ნაკრები"
 
 msgid "Features"
 msgstr "თვისებები"
@@ -2620,8 +2620,8 @@ msgstr "საქაღალდის სახელი სწორია."
 msgid "Godot Engine contributors"
 msgstr "Godot ძრავის ხელშემწყობები"
 
-msgid "Thanks from the Godot community!"
-msgstr "მადლობა Godot საზოგადოებისგან!"
+msgid "Thanks from the Kobza community!"
+msgstr "მადლობა Kobza საზოგადოებისგან!"
 
 msgid "Authors"
 msgstr "ავტორები"

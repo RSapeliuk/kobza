@@ -40,8 +40,9 @@ Upstream-Contact: Rémi Verschelde <contact@godotengine.org>
 Source: https://github.com/godotengine/godot
 
 Files: *
-Comment: Godot Engine
-Copyright: 2014-present, Godot Engine contributors
+Comment: Kobza (fork of Godot Engine)
+Copyright: 2026-present, Kobza contributors
+ 2014-present, Godot Engine contributors
  2007-2014, Juan Linietsky, Ariel Manzur
 License: Expat
 
@@ -53,15 +54,15 @@ Copyright: 2011, Ole Kniemeyer, MAXON, www.maxon.net
  2007-2014, Juan Linietsky, Ariel Manzur
 License: Expat and Zlib
 
-Files: misc/dist/linux/org.godotengine.Godot.appdata.xml
+Files: misc/dist/linux/io.github.rsapeliuk.Kobza.appdata.xml
 Comment: Linux AppStream Metadata File
 Copyright: 2017-2022, Rémi Verschelde
 License: CC0-1.0
 
 Files: misc/logo/*
-Comment: Godot Engine logo
-Copyright: 2017, Andrea Calabró
-License: CC-BY-4.0
+Comment: Kobza Engine placeholder logo
+Copyright: 2026-present, Kobza contributors
+License: Expat
 
 Files: modules/betsy/alpha_stitch.glsl
  modules/betsy/bc1.glsl

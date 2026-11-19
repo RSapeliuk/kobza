@@ -1,5 +1,8 @@
-Godot Engine Logo
-Copyright (c) 2017 Andrea Calabró
+Kobza Engine placeholder logo
+Copyright (c) 2026-present Kobza contributors.
 
-This work is licensed under the Creative Commons Attribution 4.0 International
-license (CC BY 4.0 International): https://creativecommons.org/licenses/by/4.0/
+This is a temporary placeholder logo, distributed under the same MIT license
+as the rest of Kobza (see LICENSE.txt in the repository root).
+
+The "Kobza" wordmark is set in Inter Bold (SIL Open Font License 1.1),
+see thirdparty/fonts/LICENSE.Inter.txt.

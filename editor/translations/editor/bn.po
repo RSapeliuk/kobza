@@ -2585,8 +2585,8 @@ msgstr "সাহায্য অনুসন্ধান করুন…"
 msgid "Online Documentation"
 msgstr "অনলাইন ডকুমেন্টেশন"
 
-msgid "About Godot..."
-msgstr "Godot সম্পর্কে…"
+msgid "About Kobza..."
+msgstr "Kobza সম্পর্কে…"
 
 msgid "Project"
 msgstr "প্রজেক্ট"
@@ -2960,8 +2960,8 @@ msgstr "ফোল্ডার নামটি গ্রহণযোগ্য।"
 msgid "Godot Engine contributors"
 msgstr "Godot Engine কন্ট্রিবিউটরস"
 
-msgid "Thanks from the Godot community!"
-msgstr "Godot কমিউনিটি হতে আপনাকে ধন্যবাদ!"
+msgid "Thanks from the Kobza community!"
+msgstr "Kobza কমিউনিটি হতে আপনাকে ধন্যবাদ!"
 
 msgid "Authors"
 msgstr "লেখক"

@@ -1,9 +1,9 @@
-short_name = "godot"
-name = "Godot Engine"
+short_name = "kobza"
+name = "Kobza Engine"
 major = 4
 minor = 8
 patch = 0
 status = "beta"
 module_config = ""
-website = "https://godotengine.org"
+website = "https://github.com/RSapeliuk/kobza"
 docs = "latest"
