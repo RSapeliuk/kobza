@@ -8,7 +8,7 @@
 		You can create new instances, using [code]Object.new()[/code] in GDScript, or [code]new GodotObject[/code] in C#.
 		To delete an Object instance, call [method free]. This is necessary for most classes inheriting Object, because they do not manage memory on their own, and will otherwise cause memory leaks when no longer in use. There are a few classes that perform memory management. For example, [RefCounted] (and by extension [Resource]) deletes itself when no longer referenced, and [Node] deletes its children when freed.
 		Objects can have a [Script] attached to them. Once the [Script] is instantiated, it effectively acts as an extension to the base class, allowing it to define and inherit new properties, methods and signals.
-		Inside a [Script], [method _get_property_list] may be overridden to customize properties in several ways. This allows them to be available to the editor, display as lists of options, sub-divide into groups, save on disk, etc. Scripting languages offer easier ways to customize properties, such as with the [annotation @GDScript.@export] annotation.
+		Inside a [Script], [method _get_property_list] may be overridden to customize properties in several ways. This allows them to be available to the editor, display as lists of options, sub-divide into groups, save on disk, etc. Scripting languages offer easier ways to customize properties, such as with the [code]@export[/code] annotation.
 		Godot is very dynamic. An object's script, and therefore its properties, methods and signals, can be changed at run-time. Because of this, there can be occasions where, for example, a property required by a method may not exist. To prevent run-time errors, see methods such as [method set], [method get], [method call], [method has_method], [method has_signal], etc. Note that these methods are [b]much[/b] slower than direct references.
 		In GDScript, you can also check if a given property, method, or signal name exists in an object with the [code]in[/code] operator:
 		[codeblock]
@@ -36,7 +36,7 @@
 			<description>
 				Override this method to customize the behavior of [method get]. Should return the given [param property]'s value, or [code]null[/code] if the [param property] should be handled normally.
 				Combined with [method _set] and [method _get_property_list], this method allows defining custom properties, which is particularly useful for editor plugins.
-				[b]Note:[/b] This method is not called when getting built-in properties of an object, including properties defined with [annotation @GDScript.@export].
+				[b]Note:[/b] This method is not called when getting built-in properties of an object, including properties defined with [code]@export[/code].
 				[codeblocks]
 				[gdscript]
 				func _get(property):
@@ -187,8 +187,8 @@
 				}
 				[/csharp]
 				[/codeblocks]
-				[b]Note:[/b] This method is intended for advanced purposes. For most common use cases, the scripting languages offer easier ways to handle properties. See [annotation @GDScript.@export], [annotation @GDScript.@export_enum], [annotation @GDScript.@export_group], etc. If you want to customize exported properties, use [method _validate_property].
-				[b]Note:[/b] If the object's script is not [annotation @GDScript.@tool], this method will not be called in the editor.
+				[b]Note:[/b] This method is intended for advanced purposes. For most common use cases, the scripting languages offer easier ways to handle properties. See [code]@export[/code], [code]@export_enum[/code], [code]@export_group[/code], etc. If you want to customize exported properties, use [method _validate_property].
+				[b]Note:[/b] If the object's script is not [code]@tool[/code], this method will not be called in the editor.
 				[b]Note:[/b] Unlike other virtual methods, this method is called automatically for every script that overrides it. This means that the base implementation should not be called via [code]super[/code] in GDScript or its equivalents in other languages. The bottom-most sub-class will be called first, with subsequent calls ascending the class hierarchy.
 				[b]Warning:[/b] This method must be [url=$DOCS_URL/tutorials/performance/thread_safe_apis.html]thread-safe[/url] if overridden. Otherwise, the engine may crash when trying to save a resource containing the object.
 			</description>
@@ -300,7 +300,7 @@
 			<description>
 				Override this method to customize the behavior of [method set]. Should set the [param property] to [param value] and return [code]true[/code], or [code]false[/code] if the [param property] should be handled normally. The [i]exact[/i] way to set the [param property] is up to this method's implementation.
 				Combined with [method _get] and [method _get_property_list], this method allows defining custom properties, which is particularly useful for editor plugins.
-				[b]Note:[/b] This method is not called when setting built-in properties of an object, including properties defined with [annotation @GDScript.@export].
+				[b]Note:[/b] This method is not called when setting built-in properties of an object, including properties defined with [code]@export[/code].
 				[codeblocks]
 				[gdscript]
 				var internal_data = {}

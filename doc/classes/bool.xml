@@ -65,7 +65,7 @@
 			<return type="bool" />
 			<param index="0" name="from" type="float" />
 			<description>
-				Casts a [float] value to a [bool]. Returns [code]false[/code] if [param from] is equal to [code]0.0[/code] (including [code]-0.0[/code]), and [code]true[/code] for all other values (including [constant @GDScript.INF] and [constant @GDScript.NAN]).
+				Casts a [float] value to a [bool]. Returns [code]false[/code] if [param from] is equal to [code]0.0[/code] (including [code]-0.0[/code]), and [code]true[/code] for all other values (including [code]INF[/code] and [code]NAN[/code]).
 			</description>
 		</constructor>
 		<constructor name="bool">

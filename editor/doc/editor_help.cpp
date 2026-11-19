@@ -2773,7 +2773,7 @@ static void _add_text_to_rt(const String &p_bbcode, RichTextLabel *p_rt, const C
 				codeblock_copy_text = builder.as_string();
 			}
 
-			String lang;
+			[[maybe_unused]] String lang;
 			const PackedStringArray args = tag.trim_prefix("codeblock").split(" ", false);
 			for (int i = args.size() - 1; i >= 0; i--) {
 				if (args[i].begins_with("lang=")) {

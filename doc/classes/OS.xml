@@ -38,7 +38,7 @@
 			<param index="0" name="message" type="String" />
 			<description>
 				Crashes the engine (or the editor if called within a [code]@tool[/code] script). See also [method kill].
-				[b]Note:[/b] This method should [i]only[/i] be used for testing the system's crash handler, not for any other purpose. For general error reporting, use (in order of preference) [method @GDScript.assert], [method @GlobalScope.push_error], or [method alert].
+				[b]Note:[/b] This method should [i]only[/i] be used for testing the system's crash handler, not for any other purpose. For general error reporting, use (in order of preference) [code]assert()[/code], [method @GlobalScope.push_error], or [method alert].
 			</description>
 		</method>
 		<method name="create_instance">
