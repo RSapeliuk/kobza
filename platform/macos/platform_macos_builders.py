@@ -52,7 +52,9 @@ def generate_bundle(target, source, env):
                     line = line.replace("$version", "{major}.{minor}.{patch}.{status}.{build}".format(**version))
                     line = line.replace("$short_version", "{major}.{minor}.{patch}".format(**version))
                     if version["build"] != "official" and version["build"] != "steam":
-                        line = line.replace("io.github.rsapeliuk.kobza", "io.github.rsapeliuk.kobza." + version["build"])
+                        line = line.replace(
+                            "io.github.rsapeliuk.kobza", "io.github.rsapeliuk.kobza." + version["build"]
+                        )
                     fout.write(line)
 
         # Sign .app bundle.
