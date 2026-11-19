@@ -438,7 +438,7 @@
 			One vector, a vector with all components set to [code]1[/code].
 		</constant>
 		<constant name="INF" value="Vector3(inf, inf, inf)">
-			Infinity vector, a vector with all components set to [code]INF[/code].
+			Infinity vector, a vector with all components set to [code skip-lint]INF[/code].
 		</constant>
 		<constant name="LEFT" value="Vector3(-1, 0, 0)">
 			Left unit vector. Represents the local direction of left, and the global direction of west.

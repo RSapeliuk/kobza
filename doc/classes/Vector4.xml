@@ -307,7 +307,7 @@
 			One vector, a vector with all components set to [code]1[/code].
 		</constant>
 		<constant name="INF" value="Vector4(inf, inf, inf, inf)">
-			Infinity vector, a vector with all components set to [code]INF[/code].
+			Infinity vector, a vector with all components set to [code skip-lint]INF[/code].
 		</constant>
 	</constants>
 	<operators>
