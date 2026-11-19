@@ -151,6 +151,13 @@
 #include "modules/mono/editor/bindings_generator.h"
 #endif
 
+#ifdef MODULE_GDSCRIPT_ENABLED
+#include "modules/gdscript/gdscript.h"
+#if defined(TOOLS_ENABLED) && !defined(GDSCRIPT_NO_LSP)
+#include "modules/gdscript/language_server/gdscript_language_server.h"
+#endif // TOOLS_ENABLED && !GDSCRIPT_NO_LSP
+#endif // MODULE_GDSCRIPT_ENABLED
+
 /* Static members */
 
 // Singletons
@@ -318,6 +325,31 @@ static String get_full_version_string() {
 	return String(GODOT_VERSION_FULL_BUILD) + hash;
 }
 
+#if defined(TOOLS_ENABLED) && defined(MODULE_GDSCRIPT_ENABLED)
+static Vector<String> get_files_with_extension(const String &p_root, const String &p_extension) {
+	Vector<String> paths;
+
+	Ref<DirAccess> dir = DirAccess::open(p_root);
+	if (dir.is_valid()) {
+		dir->list_dir_begin();
+		String fn = dir->get_next();
+		while (!fn.is_empty()) {
+			if (!dir->current_is_hidden() && fn != "." && fn != "..") {
+				if (dir->current_is_dir()) {
+					paths.append_array(get_files_with_extension(p_root.path_join(fn), p_extension));
+				} else if (fn.get_extension() == p_extension) {
+					paths.append(p_root.path_join(fn));
+				}
+			}
+			fn = dir->get_next();
+		}
+		dir->list_dir_end();
+	}
+
+	return paths;
+}
+#endif
+
 void finalize_display() {
 	if (rendering_server) {
 		rendering_server->finish();
@@ -477,6 +509,9 @@ void Main::print_help(const char *p_binary) {
 	print_help_option("--recovery-mode", "Start the editor in recovery mode, which disables features that can typically cause startup crashes, such as tool scripts, editor plugins, GDExtension addons, and others.\n", CLI_OPTION_AVAILABILITY_EDITOR);
 	print_help_option("--debug-server <uri>", "Start the editor debug server (<protocol>://<host/IP>[:port], e.g. tcp://127.0.0.1:6007)\n", CLI_OPTION_AVAILABILITY_EDITOR);
 	print_help_option("--dap-port <port>", "Use the specified port for the GDScript Debug Adapter Protocol. Recommended port range [1024, 49151].\n", CLI_OPTION_AVAILABILITY_EDITOR);
+#if defined(MODULE_GDSCRIPT_ENABLED) && !defined(GDSCRIPT_NO_LSP)
+	print_help_option("--lsp-port <port>", "Use the specified port for the GDScript Language Server Protocol. Recommended port range [1024, 49151].\n", CLI_OPTION_AVAILABILITY_EDITOR);
+#endif // MODULE_GDSCRIPT_ENABLED && !GDSCRIPT_NO_LSP
 #endif
 	print_help_option("--quit", "Quit after the first iteration.\n");
 	print_help_option("--quit-after <int>", "Quit after the given number of iterations. Set to 0 to disable.\n");
@@ -628,6 +663,9 @@ void Main::print_help(const char *p_binary) {
 	print_help_option("--doctool [path]", "Dump the engine API reference to the given <path> (defaults to current directory) in XML format, merging if existing files are found.\n", CLI_OPTION_AVAILABILITY_EDITOR);
 	print_help_option("--no-docbase", "Disallow dumping the base types (used with --doctool).\n", CLI_OPTION_AVAILABILITY_EDITOR);
 	print_help_option("--gdextension-docs", "Rather than dumping the engine API, generate API reference from all the GDExtensions loaded in the current project (used with --doctool).\n", CLI_OPTION_AVAILABILITY_EDITOR);
+#ifdef MODULE_GDSCRIPT_ENABLED
+	print_help_option("--gdscript-docs <path>", "Rather than dumping the engine API, generate API reference from the inline documentation in the GDScript files found in <path> (used with --doctool).\n", CLI_OPTION_AVAILABILITY_EDITOR);
+#endif
 	print_help_option("--build-solutions", "Build the scripting solutions (e.g. for C# projects). Implies --editor and requires a valid project to edit.\n", CLI_OPTION_AVAILABILITY_EDITOR);
 	print_help_option("--dump-gdextension-interface", "Generate a GDExtension header file \"gdextension_interface.h\" in the current folder. This file is the base file required to implement a GDExtension.\n", CLI_OPTION_AVAILABILITY_EDITOR);
 	print_help_option("--dump-gdextension-interface-json", "Generate a JSON dump of the GDExtension interface named \"gdextension_interface.json\" in the current folder.\n", CLI_OPTION_AVAILABILITY_EDITOR);
@@ -1672,6 +1710,22 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 			audio_driver = NULL_AUDIO_DRIVER;
 			display_driver = NULL_DISPLAY_DRIVER;
 			main_args.push_back(arg);
+#ifdef MODULE_GDSCRIPT_ENABLED
+		} else if (arg == "--gdscript-docs") {
+			if (N) {
+				project_path = N->get();
+				// Will be handled in start()
+				main_args.push_back(arg);
+				main_args.push_back(N->get());
+				N = N->next();
+				// GDScript docgen requires Autoloads, but loading those also creates a main loop.
+				// This forces main loop to quit without adding more GDScript-specific exceptions to setup.
+				quit_after = 1;
+			} else {
+				OS::get_singleton()->print("Missing relative or absolute path to project for --gdscript-docs, aborting.\n");
+				goto error;
+			}
+#endif // MODULE_GDSCRIPT_ENABLED
 #endif // TOOLS_ENABLED
 
 		} else if (arg == "--path") { // set path of project to start or edit
@@ -1940,6 +1994,21 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 				OS::get_singleton()->print("Missing <path> argument for --benchmark-file <path>.\n");
 				goto error;
 			}
+#if defined(TOOLS_ENABLED) && defined(MODULE_GDSCRIPT_ENABLED) && !defined(GDSCRIPT_NO_LSP)
+		} else if (arg == "--lsp-port") {
+			if (N) {
+				int port_override = N->get().to_int();
+				if (port_override < 0 || port_override > 65535) {
+					OS::get_singleton()->print("<port> argument for --lsp-port <port> must be between 0 and 65535.\n");
+					goto error;
+				}
+				GDScriptLanguageServer::port_override = port_override;
+				N = N->next();
+			} else {
+				OS::get_singleton()->print("Missing <port> argument for --lsp-port <port>.\n");
+				goto error;
+			}
+#endif // TOOLS_ENABLED && MODULE_GDSCRIPT_ENABLED && !GDSCRIPT_NO_LSP
 #if defined(TOOLS_ENABLED)
 		} else if (arg == "--dap-port") {
 			if (N) {
@@ -4001,6 +4070,9 @@ int Main::start() {
 	bool export_pack_only = false;
 	bool install_android_build_template = false;
 	bool export_patch = false;
+#ifdef MODULE_GDSCRIPT_ENABLED
+	String gdscript_docs_path;
+#endif
 #ifndef DISABLE_DEPRECATED
 	bool converting_project = false;
 	bool validating_converting_project = false;
@@ -4093,6 +4165,10 @@ int Main::start() {
 					doc_tool_implicit_cwd = true;
 					parsed_pair = false;
 				}
+#ifdef MODULE_GDSCRIPT_ENABLED
+			} else if (E->get() == "--gdscript-docs") {
+				gdscript_docs_path = E->next()->get();
+#endif
 			} else if (E->get() == "--export-release") {
 				ERR_FAIL_COND_V_MSG(!editor && !found_project, EXIT_FAILURE, "Please provide a valid project path when exporting, aborting.");
 				editor = true; //needs editor
@@ -4141,7 +4217,11 @@ int Main::start() {
 	}
 
 #ifdef TOOLS_ENABLED
+#ifdef MODULE_GDSCRIPT_ENABLED
+	if (!doc_tool_path.is_empty() && gdscript_docs_path.is_empty()) {
+#else
 	if (!doc_tool_path.is_empty()) {
+#endif
 		// Needed to instance editor-only classes for their default values
 		Engine::get_singleton()->set_editor_hint(true);
 
@@ -4527,6 +4607,36 @@ int Main::start() {
 		}
 
 #ifdef TOOLS_ENABLED
+#ifdef MODULE_GDSCRIPT_ENABLED
+		if (!doc_tool_path.is_empty() && !gdscript_docs_path.is_empty()) {
+			DocTools docs;
+			Error err;
+
+			Vector<String> paths = get_files_with_extension(gdscript_docs_path, "gd");
+			ERR_FAIL_COND_V_MSG(paths.is_empty(), EXIT_FAILURE, "Couldn't find any GDScript files under the given directory: " + gdscript_docs_path);
+
+			for (const String &path : paths) {
+				Ref<GDScript> gdscript = ResourceLoader::load(path);
+				for (const DocData::ClassDoc &class_doc : gdscript->get_documentation()) {
+					docs.add_doc(class_doc);
+				}
+			}
+
+			if (doc_tool_implicit_cwd) {
+				doc_tool_path = "./docs";
+			}
+
+			Ref<DirAccess> da = DirAccess::create_for_path(doc_tool_path);
+			err = da->make_dir_recursive(doc_tool_path);
+			ERR_FAIL_COND_V_MSG(err != OK, EXIT_FAILURE, "Error: Can't create GDScript docs directory: " + doc_tool_path + ": " + itos(err));
+
+			HashMap<String, String> doc_data_classes;
+			err = docs.save_classes(doc_tool_path, doc_data_classes, false);
+			ERR_FAIL_COND_V_MSG(err != OK, EXIT_FAILURE, "Error saving GDScript docs:" + itos(err));
+
+			return EXIT_SUCCESS;
+		}
+#endif // MODULE_GDSCRIPT_ENABLED
 
 		EditorNode *editor_node = nullptr;
 		if (editor) {
