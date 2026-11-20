@@ -12,6 +12,7 @@ on:
 env:
   SCONS_FLAGS: >-
     dev_mode=yes
+    module_mono_enabled=no
     module_text_server_fb_enabled=yes
   GODOT_CPP_BRANCH: 4.5
   DOTNET_NOLOGO: true
@@ -39,7 +40,7 @@ jobs:
             build-mono: true
             doc-test: true
             proj-conv: true
-            proj-export: true
+            # Kobza: no proj-export, the upstream godot-tests project is written in GDScript.
             api-compat: true
             artifact: true
             # Validate godot-cpp compatibility on one arbitrary editor build.
@@ -60,7 +61,7 @@ jobs:
               linker=mold
             bin: ./bin/kobza.linuxbsd.editor.dev.double.x86_64.san
             install-mold: true
-            proj-test: true
+            # Kobza: no proj-test, the upstream regression test project is written in GDScript.
             free-space: true
 
           - name: Editor with clang sanitizers (target=editor, dev_build=yes, use_asan=yes, use_ubsan=yes, use_llvm=yes, linker=lld)

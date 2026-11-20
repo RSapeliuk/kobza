@@ -6,7 +6,7 @@
 	<description>
 		A list of global scope enumerated constants and built-in functions. This is all that resides in the globals, constants regarding error codes, keycodes, property hints, etc.
 		Singletons are also documented here, since they can be accessed from anywhere.
-		For the entries that can only be accessed from scripts written in GDScript, see [@GDScript].
+		For the entries that can only be accessed from scripts written in GDScript, see [code]@GDScript[/code].
 	</description>
 	<tutorials>
 		<link title="Random number generation">$DOCS_URL/tutorials/math/random_number_generation.html</link>
@@ -65,7 +65,7 @@
 			<return type="float" />
 			<param index="0" name="x" type="float" />
 			<description>
-				Returns the arc cosine of [param x] in radians. Use to get the angle of cosine [param x]. [param x] will be clamped between [code]-1.0[/code] and [code]1.0[/code] (inclusive), in order to prevent [method acos] from returning [constant @GDScript.NAN].
+				Returns the arc cosine of [param x] in radians. Use to get the angle of cosine [param x]. [param x] will be clamped between [code]-1.0[/code] and [code]1.0[/code] (inclusive), in order to prevent [method acos] from returning [code]NAN[/code].
 				[codeblock]
 				# c is 0.523599 or 30 degrees if converted with rad_to_deg(c)
 				var c = acos(0.866025)
@@ -76,7 +76,7 @@
 			<return type="float" />
 			<param index="0" name="x" type="float" />
 			<description>
-				Returns the hyperbolic arc (also called inverse) cosine of [param x], returning a value in radians. Use it to get the angle from an angle's cosine in hyperbolic space if [param x] is larger or equal to 1. For values of [param x] lower than 1, it will return 0, in order to prevent [method acosh] from returning [constant @GDScript.NAN].
+				Returns the hyperbolic arc (also called inverse) cosine of [param x], returning a value in radians. Use it to get the angle from an angle's cosine in hyperbolic space if [param x] is larger or equal to 1. For values of [param x] lower than 1, it will return 0, in order to prevent [method acosh] from returning [code]NAN[/code].
 				[codeblock]
 				var a = acosh(2) # Returns 1.31695789692482
 				cosh(a) # Returns 2
@@ -97,7 +97,7 @@
 			<return type="float" />
 			<param index="0" name="x" type="float" />
 			<description>
-				Returns the arc sine of [param x] in radians. Use to get the angle of sine [param x]. [param x] will be clamped between [code]-1.0[/code] and [code]1.0[/code] (inclusive), in order to prevent [method asin] from returning [constant @GDScript.NAN].
+				Returns the arc sine of [param x] in radians. Use to get the angle of sine [param x]. [param x] will be clamped between [code]-1.0[/code] and [code]1.0[/code] (inclusive), in order to prevent [method asin] from returning [code]NAN[/code].
 				[codeblock]
 				# s is 0.523599 or 30 degrees if converted with rad_to_deg(s)
 				var s = asin(0.5)
@@ -144,7 +144,7 @@
 			<param index="0" name="x" type="float" />
 			<description>
 				Returns the hyperbolic arc (also called inverse) tangent of [param x], returning a value in radians. Use it to get the angle from an angle's tangent in hyperbolic space if [param x] is between -1 and 1 (non-inclusive).
-				In mathematics, the inverse hyperbolic tangent is only defined for -1 &lt; [param x] &lt; 1 in the real set, so values equal or lower to -1 for [param x] return negative [constant @GDScript.INF] and values equal or higher than 1 return positive [constant @GDScript.INF] in order to prevent [method atanh] from returning [constant @GDScript.NAN].
+				In mathematics, the inverse hyperbolic tangent is only defined for -1 &lt; [param x] &lt; 1 in the real set, so values equal or lower to -1 for [param x] return negative [code]INF[/code] and values equal or higher than 1 return positive [code]INF[/code] in order to prevent [method atanh] from returning [code]NAN[/code].
 				[codeblock]
 				var a = atanh(0.9) # Returns 1.47221948958322
 				tanh(a) # Returns 0.9
@@ -551,7 +551,7 @@
 			<return type="bool" />
 			<param index="0" name="x" type="float" />
 			<description>
-				Returns whether [param x] is a finite value, i.e. it is not [constant @GDScript.NAN], positive infinity, or negative infinity. See also [method is_inf] and [method is_nan].
+				Returns whether [param x] is a finite value, i.e. it is not [code]NAN[/code], positive infinity, or negative infinity. See also [method is_inf] and [method is_nan].
 			</description>
 		</method>
 		<method name="is_inf">
@@ -579,7 +579,7 @@
 			<return type="bool" />
 			<param index="0" name="x" type="float" />
 			<description>
-				Returns [code]true[/code] if [param x] is a NaN ("Not a Number" or invalid) value. This method is needed as [constant @GDScript.NAN] is not equal to itself, which means [code]x == NAN[/code] can't be used to check whether a value is a NaN.
+				Returns [code]true[/code] if [param x] is a NaN ("Not a Number" or invalid) value. This method is needed as [code]NAN[/code] is not equal to itself, which means [code]x == NAN[/code] can't be used to check whether a value is a NaN.
 			</description>
 		</method>
 		<method name="is_same">
@@ -637,7 +637,7 @@
 			<param index="2" name="weight" type="float" />
 			<description>
 				Linearly interpolates between two angles (in radians) by a [param weight] value between 0.0 and 1.0.
-				Similar to [method lerp], but interpolates correctly when the angles wrap around [constant @GDScript.TAU]. To perform eased interpolation with [method lerp_angle], combine it with [method ease] or [method smoothstep].
+				Similar to [method lerp], but interpolates correctly when the angles wrap around [code]TAU[/code]. To perform eased interpolation with [method lerp_angle], combine it with [method ease] or [method smoothstep].
 				[codeblock]
 				extends Sprite
 				var elapsed = 0.0
@@ -1125,7 +1125,7 @@
 			<param index="2" name="delta" type="float" />
 			<description>
 				Rotates [param from] toward [param to] by the [param delta] amount. Will not go past [param to].
-				Similar to [method move_toward], but interpolates correctly when the angles wrap around [constant @GDScript.TAU].
+				Similar to [method move_toward], but interpolates correctly when the angles wrap around [code]TAU[/code].
 				If [param delta] is negative, this function will rotate away from [param to], toward the opposite angle, and will not go past the opposite angle.
 			</description>
 		</method>
@@ -1574,10 +1574,6 @@
 		</member>
 		<member name="GDExtensionManager" type="GDExtensionManager" setter="" getter="">
 			The [GDExtensionManager] singleton.
-		</member>
-		<member name="GDScriptLanguageProtocol" type="GDScriptLanguageProtocol" setter="" getter="">
-			The [GDScriptLanguageProtocol] singleton.
-			[b]Note:[/b] Only available in editor builds.
 		</member>
 		<member name="Geometry2D" type="Geometry2D" setter="" getter="">
 			The [Geometry2D] singleton.

@@ -156,7 +156,7 @@ private:
 		mono_user_dir = _get_mono_user_dir();
 #endif
 
-		String exe_dir = OS::get_singleton()->get_executable_path().get_base_dir();
+		[[maybe_unused]] String exe_dir = OS::get_singleton()->get_executable_path().get_base_dir();
 #ifdef MACOS_ENABLED
 		String res_dir = OS::get_singleton()->get_bundle_resource_dir();
 #endif
@@ -176,9 +176,9 @@ private:
 #endif
 		api_assemblies_dir = api_assemblies_base_dir.path_join(GDMono::get_expected_api_build_config());
 #else // TOOLS_ENABLED
-		String platform = _get_platform_name();
+		[[maybe_unused]] String platform = _get_platform_name();
 		String arch = Engine::get_singleton()->get_architecture_name();
-		String appname_safe = Path::get_csharp_project_name();
+		[[maybe_unused]] String appname_safe = Path::get_csharp_project_name();
 		String packed_path = "res://.godot/mono/publish/" + arch;
 #ifdef ANDROID_ENABLED
 		api_assemblies_dir = packed_path;

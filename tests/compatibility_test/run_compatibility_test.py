@@ -13,6 +13,15 @@ CLASS_METHODS_FILE = PROJECT_PATH.joinpath("class_methods.txt")
 BUILTIN_METHODS_FILE = PROJECT_PATH.joinpath("builtin_methods.txt")
 UTILITY_FUNCTIONS_FILE = PROJECT_PATH.joinpath("utility_functions.txt")
 
+# Kobza: classes intentionally removed from the engine (the GDScript module was removed).
+REMOVED_CLASSES = {
+    "GDScript",
+    "GDScriptLanguageProtocol",
+    "GDScriptSyntaxHighlighter",
+    "GDScriptTextDocument",
+    "GDScriptWorkspace",
+}
+
 
 def download_gdextension_api(reftag: str) -> dict[str, Any]:
     with urllib.request.urlopen(
@@ -41,6 +50,7 @@ def generate_test_data_files(reftag: str):
                 (
                     (klass, method)
                     for klass in gdextension_reference_json["classes"]
+                    if klass["name"] not in REMOVED_CLASSES
                     for method in klass.get("methods", [])
                     if not method.get("is_virtual")
                 ),
